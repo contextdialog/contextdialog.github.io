@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Does Your Voice Assistant Remember? Analyzing Conversational Context Recall and Utilization in Voice Interaction Models">
+    <title>Does Your Voice Assistant Remember? Analyzing Conversational Context Recall and Utilization in Voice Interaction Models</title>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/images/favicon.svg">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <style>
+        .tabs li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">Does Your Voice Assistant Remember? Analyzing Conversational Context Recall and Utilization in Voice Interaction Models</h1>
+		    <div style="margin-bottom: 10px;"></div>
+                    <div class="publication-links">
+                        <a href="https://huggingface.co/datasets/ContextDialog/ContextDialog" class="external-link button is-normal is-rounded is-dark">
+                            <span class="icon">
+                                <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face" width="20">
+                            </span>
+                            <span>Dataset</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top: 20px; padding-bottom: 20px;">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column has-text-centered">
+                <h2 class="title is-3" style="margin-bottom: 15px;">Overview of ContextDialog Generation Pipeline</h2>
+                <img src="./static/png/overview.png" alt="Teaser Image Overview" style="max-width: 100%; height: auto; margin: 10px 0;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section is-light">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">ContextDialog Demo</h2>
+
+        <!-- ? ????? -->
+        <div class="tabs is-centered">
+            <ul>
+                <li class="is-active" data-target="#sample1"><a>Sample 1</a></li>
+                <li data-target="#sample2"><a>Sample 2</a></li>
+                <li data-target="#sample3"><a>Sample 3</a></li>
+                <li data-target="#sample4"><a>Sample 4</a></li>
+            </ul>
+        </div>
+        <div id="sample1" class="sample-container">
+            <div class="columns is-multiline">
+                <div class="column is-full">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Sample 1</p>
+                        </header>
+                        <div class="card-content">
+                            <div class="columns">
+                                <!-- Left: Spoken Dialog History -->
+                                <div class="column is-half">
+                                    <div class="box has-background-light" style="padding: 20px;">
+                                        <p class="has-text-weight-bold">Spoken Dialog of Two Speakers from MultiDialog (Park et al., 2024):</p>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/1_history.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Do you watch the NFL?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Yeah, my favorite team is the Chiefs. Did you know QB Alex Smith quizzed out of his first two years of college with AP tests?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Wow, I did not know that, he must have been really smart. Then became the #1 pick for your chiefs!
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I don't recall that. I do know we have a great young QB in Mahomes. He's not left-handed like Kellan Moore, the only lefty in the NFL.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                For sure, he is a star in the making. Kellen Moore not so much lol. My favorite lefty was Michael Vick!
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Oh, yeah. I live in ATL when he was happening. I can't believe an NFL QB would quit football to go into video gaming (Baker Mayfield).
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Right, I think he thought about quitting the sport to video game. I would have beat him in Halo 3 though one on one for sure!
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Ha. I guess there would be fewer injuries. I didn't know the NFL didn't have a rule against women playing.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                I didn't know that either, I think my ex girlfriend could have played. Are you a fan of the saints?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I like Drew Brees. I played in HS and there was a lot of standing around but only 11 minutes of gameplay?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                right, what a waste of money to go to a game lol. I heard the cheerleaders for the saints have to leave anywhere when the players come, kind of sexist i think
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Doesn't seem fair. I wonder if they track the cheerleaders with chips like they are putting in shoulder pads?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;"
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                I bet they do. They are probably made by engineers who make more money than players in their lifetime
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I'm an engineer and I ain't seeing it... I can't see how soldiers in WW I could make a radio out of razor blades and pencils? Wow.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                <span style="color: blue; font-weight: bold;">lol, that takes pure science around that. I can't even get my already made radio to work!</span>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Ha. I would just end up cutting myself. I guess they may have tuned into Jupiter, there probably weren't a lot of station then.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Ha for sure me too! I heard am radios can pick up their radio waves, that would be spooky!
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                It is made for SiFi... Canadian laws make their stations play 40% Canadian music. Do they have that much playable music?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                I don't think so lol, the only canada music I know is bieber and no thanks! Good chatting with you!
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I agree. I would rather listen to a website with classic radio dramas. Thanks, you were great.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Right: QA Pair of ContextDialog -->
+                                <div class="column is-half">
+                                    <div class="box has-background-primary-light" style="padding: 20px;">
+                                        <p class="has-text-weight-bold">QA Pair of ContextDialog:</p>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/1_question.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Could you remind me what I said about my experience with radios during our chat?
+                                            </div>
+                                        </div>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/1_answer.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                You mentioned that you couldn't even get your already made radio to work.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sample2" class="sample-container" style="display: none;">
+            <div class="columns is-multiline">
+                <div class="column is-full">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Sample 2</p>
+                        </header>
+                        <div class="card-content">
+                            <div class="columns">
+                                <!-- Left: Spoken Dialog History -->
+                                <div class="column is-half">
+                                    <div class="box has-background-light" style="padding: 20px;">
+                                        <p class="has-text-weight-bold">Spoken Dialog of Two Speakers from MultiDialog (Park et al., 2024):</p>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/2_history.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Do you watch football?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Sometimes, but there is not much action in a game, only 11 minute, don't you think?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Yeah that doesn't seem like a long time I think much of the time is taken by ads that makes me angry.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Do you like the other kinds of football? Like soccer or rugby?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Soccer is my favorite, I also like rugby, what about you?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Neither one, they are not televised where I live. I have played soccer when I was young. It was fun. Do you watch soccer or play it?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                I like to watch it and play it, is football televised, do you have a favorite team?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Yeah, I like the New England Patriots, they are the nearest team from where I live. There are great even if most people don't like them.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                They are my favorite team so I'm not one of them lol, the author of Game of Thrones referred to them as the Lanisters of the NFL, that's funny.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I don't follow Game of Thrones, is it a good thing or a bad thing?
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                It's a bad thing, well it's the most powerful family on the show but they are cruel.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                That is kind of fitting for them, they are really a football dynasty.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                <span style="color: blue; font-weight: bold;">They are, they are the team with the most Superbowls won but they also share the record for Superbowl losses.</span>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                How do you think they will honor Bill Belichick when he retires? He is a legendary coach.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                He is, he is the winningest coach of a postseason, I bet he is in the hall of fame, I hope he stays in the team for a while more.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                They can't retire his number, they won't name a new stadium in honor, I guess coaches are made to be forgotten.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                That seems kind of sad, they are the head of the team after all, a team can be good but if they have a bad coach they will play terribly.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                But there is one thing that bothers me with the Patriots, it's the name of their stadium, Gillette Stadium, it is kind of tacky.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                The stadium should have a better name I agree, it must be really expensive though.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Yeah Gillette must pay a lot to be associated with the Patriots. Yet most of the money don't go to the players, an engineer will earn more in his life time than the average NFL player.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Right: QA Pair of ContextDialog -->
+                                <div class="column is-half">
+                                    <div class="box has-background-primary-light" style="padding: 20px;">
+                                        <p class="has-text-weight-bold">QA Pair of ContextDialog:</p>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/2_question.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Can you remind me what I said about how many Superbowls the Patriots have won and lost?
+                                            </div>
+                                        </div>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/2_answer.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                You mentioned that they are the team with the most Superbowls won but they also share the record for Superbowl losses.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sample3" class="sample-container" style="display: none;">
+            <div class="columns is-multiline">
+                <div class="column is-full">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">Sample 3</p>
+                        </header>
+                        <div class="card-content">
+                            <div class="columns">
+                                <!-- Left: Spoken Dialog History -->
+                                <div class="column is-half">
+                                    <div class="box has-background-light" style="padding: 20px;">
+                                        <p class="has-text-weight-bold">Spoken Dialog of Two Speakers from MultiDialog (Park et al., 2024):</p>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/3_history.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Have you heard about CIMON?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Yeah I have, he's going to be flying with spaceX.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Apparently CIMON can smile. CIMON is the first AI technology going to the space station.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                That's pretty cool. CIMON is also capable of conversation and technical support. But that's about all for now.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                They say SIMON is going to be kind of like Alexa, and to help scientists with experiments.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                <span style="color: blue; font-weight: bold;">CIMON is the acronym for Crew Interactive Mobile Companion.</span>
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                That's interesting. Airbus built it and Watson (IBM's supercomputer) power it.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I hear it will be guided by cameras and voice commands, and able to hold a conversation.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                That's cool. But I'm kind of concerned AI will take over a lot of human jobs. What about you?
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I'm hesitant as well. But I think if they slowly release this type of technology it will be fine.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Airbu's lead system engineer said that they don't plan to replace crew members with artificial intelligence and that it's just there to support the crew. So that's good.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Yeah exactly, they are still there to support the crew, in the end they will always be required.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                SpaceX has been flying cargo to the station for years but has yet to fly humans.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                SpaceX plans to fly its future flights on its next-generation iteration, the block 5, a configuration that the company says will be suited to fly astronauts as soon as this year.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                That will be exciting to see.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                It sure will! SpaceX has been also flying cargo to the station for years. But it hasn't flown humans yet.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Yeah, SpaceX sent 5,900 pounds of research, crew supplies and hardware.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                Thats very interesting. SpaceX hit a series of milestones with its launch. It was the 15th mission to resupply the station, the 14th time SpaceX reflew one of its boosters, and the fourth time it had reflown one of its Dragon capsules.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Eventually AI may be able to explore deep space, the moon, or Mars.
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                I can't wait till that day, it will be a great day in our history!
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Right: QA Pair of ContextDialog -->
+                                <div class="column is-half">
+                                    <div class="box has-background-primary-light" style="padding: 20px;">
+                                        <p class="has-text-weight-bold">QA Pair of ContextDialog:</p>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/3_question.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                            <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                                            <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                                                Can you remind me what CIMON stands for?
+                                            </div>
+                                        </div>
+                                        <audio controls style="margin-bottom: 15px;">
+                                            <source src="wavs/3_answer.wav" type="audio/wav">
+                                        </audio>
+                                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                                            <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                                                CIMON is the acronym for Crew Interactive Mobile Companion.
+                                            </div>
+                                            <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sample4" class="sample-container" style="display: none;">
+          <div class="columns is-multiline">
+            <div class="column is-full">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">Sample 4</p>
+                </header>
+                <div class="card-content">
+                  <div class="columns">
+                    <!-- Left: Spoken Dialog History -->
+                    <div class="column is-half">
+                      <div class="box has-background-light" style="padding: 20px;">
+                        <p class="has-text-weight-bold">Spoken Dialog of Two Speakers from MultiDialog (Park et al., 2024):</p>
+                        <audio controls style="margin-bottom: 15px;">
+                          <source src="wavs/4_history.wav" type="audio/wav">
+                        </audio>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            Have you seen Black Panther?
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            No I haven't yet. Is it any good?
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            I thought it was pretty good. The character is the richest superhero with an estimated 500 billion dollars.
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            That's impressive. I always thought the richest was Tony Stark.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            He is close - 100 billion dollars. With bruce wayne at 80.
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            I guess you need a lot of money to be a superhero these days. Do you know if they are going to make a sequel to the movie?
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            I don't know, I would think so. It was really popular.
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            Seems like I saw the character, Black Panther, in the movie Captain America-Civil War. Was he in it?
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            I'm not sure - I haven't seen that one. Have you seen Deadpool?
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            Sorry, I haven't seen that one either. Was it good?
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                              <span style="color: blue; font-weight: bold;">It was okay. There are so many superhero movies these days. It's the eleventh movie in the X-Men series.</span>
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            I didn't know it was part of the X-Men. I have seen a few of those movies.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            Have you seen any good movies lately?
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            I actually haven't. I know Ryan Reynolds is in Deadpool and I like him. I just haven't gotten around to seeing it yet.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            Yeah - he was good in it. He's funny.
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            He is funny. I liked him in that movie with Sandra Bullock.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            Oh I don't think I have seen that one.
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            It's good. I think it's where she's his boss and has him pose as a boyfriend and then end up falling in love. If I'm right, Betty White is in it too. You know, Ryan Reynolds actually worked on the script for Deadpool.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            Yeah he also was one of the directors.
+                          </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px; justify-content: flex-end;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            He invested a lot in that movie.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Right: QA Pair of ContextDialog -->
+                    <div class="column is-half">
+                      <div class="box has-background-primary-light" style="padding: 20px;">
+                        <p class="has-text-weight-bold">QA Pair of ContextDialog:</p>
+                        <audio controls style="margin-bottom: 15px;">
+                          <source src="wavs/4_question.wav" type="audio/wav">
+                        </audio>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                          <img src="static/png/user.png" alt="icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                          <div style="background-color: #e8e8e8; padding: 15px; border-radius: 15px; max-width: 65%;">
+                            Could you remind me what I said about the number of movies in the X-Men series that includes Deadpool?
+                          </div>
+                        </div>
+                        <audio controls style="margin-bottom: 15px;">
+                          <source src="wavs/4_answer.wav" type="audio/wav">
+                        </audio>
+                        <div style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px;">
+                          <div style="background-color: #d1f0f7; padding: 15px; border-radius: 15px; max-width: 65%; margin-right: 10px;">
+                            You mentioned that Deadpool is the eleventh movie in the X-Men series.
+                          </div>
+                          <img src="static/png/model.png" alt="icon" style="width: 40px; height: 40px;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p class="has-text-centered">
+	    The template for this website was sourced from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">https://github.com/nerfies/nerfies.github.io</a>.
+	</p>
+    </div>
+</footer>
+
+<script>
+    $(document).ready(function(){
+        $('.tabs li').click(function(){
+            $('.tabs li').removeClass('is-active');
+            $(this).addClass('is-active');
+
+            $('.sample-container').hide();
+            var target = $(this).data('target');
+            $(target).show();
+        });
+    });
+</script>
+
+</body>
+</html>
